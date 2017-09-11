@@ -57,7 +57,7 @@ var runValidator =  function(rootUrl){
                             innerLink = makeLinkFromRelative(rootUrl,innerLink);
                         request(innerLink, function (error, response, body) {
                            if(!error)
-                                console.log('LINK ',chalk.,chalk.yellow(innerLink) +' '+ _status.showStatus(response.statusCode));
+                                console.log('LINK ',chalk.yellow(innerLink) +' '+ _status.showStatus(response.statusCode));
                         });
                     }
                     else{
