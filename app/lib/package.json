@@ -25,8 +25,5 @@
     "chalk": "^2.1.0",
     "cheerio": "^0.22.0",
     "request": "^2.81.0"
-  },
-  "bin" : {
-    "localw3c" : "./app/cli.js"
   }
 }
