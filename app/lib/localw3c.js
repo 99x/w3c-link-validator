@@ -1,31 +1,18 @@
 const url = require('url');
+const path = require('path');
 const request = require('request');
 const cheerio = require('cheerio');
 const chalk = require('chalk');
-const _status = require('./status');
+const links = require('./links');
+const htmlvalidator = require('./htmlvalidator');
+
 
 var globalOptions = {
     localUrl : '',
     localHost : ''
 };
-var crawledUrls = [];
 
 
-
-var isLocal = function (link) {
-    var urlinfo = url.parse(link);
-    var host = urlinfo.host;
-    return (host == globalOptions.localHost || host==null);
-};
-
-
-var isAbsolute = function (link) {
-    return link.indexOf('http://') === 0 || link.indexOf('https://') === 0;
-};
-
-var makeLinkFromRelative = function (root,link) {
-    return  root + '/'+ link;
-};
 
 
 var initValidator = function (options) {
@@ -41,35 +28,22 @@ var initValidator = function (options) {
 var runValidator =  function(rootUrl){
     if(typeof rootUrl == 'undefined')
         rootUrl = globalOptions.localUrl;
-    console.log(chalk.green.bold('PARSING ROOT '),chalk.white(rootUrl));
+
+    var urlinfo = url.parse(rootUrl);
+    var _link = urlinfo.href;
+    var _base = path.basename(urlinfo.pathname);
+
+
+    console.log(chalk.black.bgWhite.bold('VALIDATION RUNNING ON '));
+    console.log('URL : ' + _link);
+    console.log('BASE : ' + _base);
+    console.log(chalk.bold('------------'));
 
 
     request(rootUrl, function (error, response, body) {
         var $ = cheerio.load(body);
-        var links = $('a');
-        links.each(function (i, elm) {
-            if (typeof elm.attribs != 'undefined') {
-                if (typeof elm.attribs.href != 'undefined') {
-                    var innerLink = elm.attribs.href;
-
-                    if(isLocal(innerLink)){
-                        if(!isAbsolute(innerLink))
-                            innerLink = makeLinkFromRelative(rootUrl,innerLink);
-                        request(innerLink, function (error, response, body) {
-                           if(!error)
-                                console.log('LINK ',chalk.yellow(innerLink) +' '+ _status.showStatus(response.statusCode));
-                        });
-                    }
-                    else{
-                        request(innerLink, function (error, response, body) {
-                            if(!error)
-                                console.log('LINK ',chalk.yellow(innerLink) +' '+ _status.showStatus(response.statusCode));
-                        });
-                    }
-                }
-            }
-
-        });
+        links.linkChecker($, rootUrl);
+        htmlvalidator.validateHtml($)
     });
 
 
@@ -79,5 +53,9 @@ var runValidator =  function(rootUrl){
 };
 
 
-exports.init = initValidator;
-exports.run = runValidator;
+module.exports.init = initValidator;
+module.exports.run = runValidator;
+
+
+initValidator({localUrl : 'http://localhost:80/test/examples.html'});
+runValidator();
