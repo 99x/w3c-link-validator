@@ -1,0 +1,29 @@
+{
+  "name": "w3c-link-validator",
+  "version": "1.0.0",
+  "description": "Command line tool, identifying broken links, validate basic html standards and reporting",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shalithasuranga/w3c-link-validator.git"
+  },
+  "keywords": [
+    "w3c",
+    "link",
+    "validator"
+  ],
+  "author": "99xt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shalithasuranga/w3c-link-validator/issues"
+  },
+  "homepage": "https://github.com/shalithasuranga/w3c-link-validator#readme",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "cheerio": "^0.22.0",
+    "request": "^2.81.0"
+  }
+}
