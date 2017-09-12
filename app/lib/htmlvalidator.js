@@ -5,13 +5,15 @@ var validateHtml = function ($) {
 
     if(htmlTag.length == 0){
         alerts.alertWarning('<html> tag is missing.');
+        console.log('');
     }
 
     var imgs = $('img');
     imgs.each(function (i,elm) {
         if(typeof $(elm).attr('alt') == 'undefined'){
-            console.log($.html(elm));
             alerts.alertWarning('alt attribute needs to be added');
+            console.log($.html(elm));
+            console.log('');
         }
     });
 };
