@@ -3,21 +3,16 @@ const path = require('path');
 const request = require('request');
 const cheerio = require('cheerio');
 const chalk = require('chalk');
-const _status = require('./status');
+const links = require('./links');
+const htmlvalidator = require('./htmlvalidator');
+
 
 var globalOptions = {
     localUrl : '',
     localHost : ''
 };
-var crawledUrls = [];
 
 
-
-var isLocal = function (link) {
-    var urlinfo = url.parse(link);
-    var host = urlinfo.host;
-    return (host == globalOptions.localHost || host==null);
-};
 
 
 var initValidator = function (options) {
@@ -35,52 +30,20 @@ var runValidator =  function(rootUrl){
         rootUrl = globalOptions.localUrl;
 
     var urlinfo = url.parse(rootUrl);
-    console.log(urlinfo);
     var _link = urlinfo.href;
     var _base = path.basename(urlinfo.pathname);
 
 
-    console.log(chalk.green.bold('VALIDATION RUNNING ON '));
+    console.log(chalk.black.bgWhite.bold('VALIDATION RUNNING ON '));
     console.log('URL : ' + _link);
-    console.log('base : ' + _base);
+    console.log('BASE : ' + _base);
+    console.log(chalk.bold('------------'));
 
 
     request(rootUrl, function (error, response, body) {
         var $ = cheerio.load(body);
-        var links = $('a');
-
-        links.each(function (i, elm) {
-            if (typeof elm.attribs != 'undefined') {
-                if (typeof elm.attribs.href != 'undefined') {
-                    var innerLink = elm.attribs.href;
-                    if(isLocal(innerLink)){
-                        //if(!isAbsolute(innerLink))
-                            innerLink = url.resolve(rootUrl,innerLink);
-                        request(innerLink, function (error, response, body) {
-                           if(!error) {
-                               console.log('LINK ', chalk.yellow(innerLink) + ' ' + _status.showStatus(response.statusCode));
-                               if(response.statusCode != 200){
-                                   console.log(chalk.red('Problem on '));
-                                   console.log(chalk.white($.html(elm)));
-                               }
-                           }
-                        });
-                    }
-                    else{
-                        request(innerLink, function (error, response, body) {
-                            if(!error) {
-                                console.log('LINK ', chalk.yellow(innerLink) + ' ' + _status.showStatus(response.statusCode));
-                                if(response.statusCode != 200){
-                                    console.log(chalk.red('Problem on '));
-                                    console.log(chalk.white($.html(elm)));
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-
-        });
+        links.linkChecker($, rootUrl);
+        htmlvalidator.validateHtml($)
     });
 
 
@@ -90,9 +53,9 @@ var runValidator =  function(rootUrl){
 };
 
 
-exports.init = initValidator;
-exports.run = runValidator;
+module.exports.init = initValidator;
+module.exports.run = runValidator;
 
 
-initValidator({localUrl : 'http://localhost:80/w3ctest/'});
-runValidator(globalOptions.localUrl);
+initValidator({localUrl : 'http://localhost:80/test/examples.html'});
+runValidator();
