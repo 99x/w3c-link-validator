@@ -10,7 +10,7 @@ if(typeof args[2] != 'undefined'){
     localw3c.init({
         localUrl : url
     });
-    localw3c.run();
+    localw3c.exec();
 }
 
 
