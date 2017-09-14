@@ -50,16 +50,17 @@ var runValidator =  function(rootUrl){
     var _link = urlinfo.href;
     var _base = path.basename(urlinfo.pathname);
 
-
-    console.log(chalk.black.bgWhite.bold('VALIDATION RUNNING ON '));
-    console.log('URL : ' + _link);
-    console.log('BASE : ' + _base);
-    console.log(chalk.bold('------------'));
+    console.log('\n');
+    console.log(chalk.rgb(0,200,200).bold('[VALIDATING URL]') + chalk.yellow(' ==> ') + _link + '\n');
+    console.log('BASE\t' + _base);
 
     request(rootUrl, function (error, response, body) {
         if(!error) {
             if(response.statusCode == 404){
-                console.log(chalk.red.bgBlack('BROKEN'))
+                console.log('STATUS\t' + chalk.rgb(255,0,0)('BROKEN'));
+            }
+            else {
+                console.log('STATUS\t' + chalk.green('OK'));
             }
             var $ = cheerio.load(body);
             htmlvalidator.validateHtml($);
@@ -72,16 +73,16 @@ var runValidator =  function(rootUrl){
                         urlQueue.push(_slink);
             }
 
-            if (urlQueue.length > 0) {
-                var furl = urlQueue[0];
-                runValidator(furl);
-
-            }
 
 
         }
         else{
             console.log(error);
+        }
+        if (urlQueue.length > 0) {
+            var furl = urlQueue[0];
+            runValidator(furl);
+
         }
 
     });
@@ -93,9 +94,3 @@ var runValidator =  function(rootUrl){
 module.exports.init = initValidator;
 module.exports.run = runValidator;
 module.exports.exec = execute;
-
-initValidator({localUrl : 'http://localhost/w3ctest/'});
-execute();
-//urlQueue.push(globalOptions.localUrl);
-//runValidator(urlQueue[0]);
-
