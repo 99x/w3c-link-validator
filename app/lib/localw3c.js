@@ -58,6 +58,9 @@ var runValidator =  function(rootUrl){
 
     request(rootUrl, function (error, response, body) {
         if(!error) {
+            if(response.statusCode == 404){
+                console.log(chalk.red.bgBlack('BROKEN'))
+            }
             var $ = cheerio.load(body);
             htmlvalidator.validateHtml($);
             var _links = links.linkChecker($, rootUrl);
@@ -74,6 +77,8 @@ var runValidator =  function(rootUrl){
                 runValidator(furl);
 
             }
+
+
         }
         else{
             console.log(error);
@@ -89,7 +94,8 @@ module.exports.init = initValidator;
 module.exports.run = runValidator;
 module.exports.exec = execute;
 
-//initValidator({localUrl : 'http://localhost/test/'});
+initValidator({localUrl : 'http://localhost/w3ctest/'});
+execute();
 //urlQueue.push(globalOptions.localUrl);
 //runValidator(urlQueue[0]);
 

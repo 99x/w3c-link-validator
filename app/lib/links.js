@@ -24,47 +24,31 @@ var linkChecker = function ($, rootUrl) {
     var links = $('a');
 
 
-    links.each(function (i, elm) {
-        if (typeof elm.attribs != 'undefined') {
-            if (typeof elm.attribs.href != 'undefined') {
-                var innerLink = elm.attribs.href;
-                if(isLocal(innerLink)){
 
-                    innerLink = url.resolve(rootUrl,innerLink);
-                    /*request(innerLink, function (error, response, body) {
-                        if(!error) {
-                            console.log('LINK ', chalk.yellow(innerLink) + ' ' + _status.showStatus(response.statusCode));
-                            if(response.statusCode != 200){
-                                console.log(chalk.red('Problem on '));
-                                console.log(chalk.white($.html(elm)));
-                            }
-                        }
-                    });*/
-                    console.log('validate local '+innerLink);
-                }
-                else{
-                    /*request(innerLink, function (error, response, body) {
-                        if(!error) {
-                            console.log('LINK ', chalk.yellow(innerLink) + ' ' + _status.showStatus(response.statusCode));
-                            if(response.statusCode != 200){
-                                console.log(chalk.red('Problem on '));
-                                console.log(chalk.white($.html(elm)));
-                            }
-                        }
-                    });*/
-                    console.log('validate live '+innerLink);
-                }
-            }
-        }
-
-    });
     var urls = [];
     for(var i=0; i<links.length; i++){
-        var _slink = $(links[i]).attr('href');
-        try {
-            urls.push(url.resolve(rootUrl, _slink));
+        var innerLink = $(links[i]).attr('href');
+        if(typeof innerLink != 'undefined') {
+            if (isLocal(innerLink)) {
+                try {
+                    innerLink = url.resolve(rootUrl, innerLink);
+                    console.log('LOCAL ' + innerLink);
+                }
+
+                catch (err) {
+
+                }
+            }
+            else {
+                console.log('LIVE ' + innerLink);
+            }
+
+            try {
+                urls.push(url.resolve(rootUrl, innerLink));
+            }
+            catch (e) {
+            }
         }
-        catch (e){}
     }
     return urls;
 };
