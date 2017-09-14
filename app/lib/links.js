@@ -24,37 +24,33 @@ var linkChecker = function ($, rootUrl) {
     var links = $('a');
 
 
-    links.each(function (i, elm) {
-        if (typeof elm.attribs != 'undefined') {
-            if (typeof elm.attribs.href != 'undefined') {
-                var innerLink = elm.attribs.href;
-                if(isLocal(innerLink)){
-                    innerLink = url.resolve(rootUrl,innerLink);
-                    request(innerLink, function (error, response, body) {
-                        if(!error) {
-                            console.log('LINK ', chalk.yellow(innerLink) + ' ' + _status.showStatus(response.statusCode));
-                            if(response.statusCode != 200){
-                                console.log(chalk.red('Problem on '));
-                                console.log(chalk.white($.html(elm)));
-                            }
-                        }
-                    });
+
+    var urls = [];
+    for(var i=0; i<links.length; i++){
+        var innerLink = $(links[i]).attr('href');
+        if(typeof innerLink != 'undefined') {
+            if (isLocal(innerLink)) {
+                try {
+                    innerLink = url.resolve(rootUrl, innerLink);
+                    console.log('LOCAL ' + innerLink);
                 }
-                else{
-                    request(innerLink, function (error, response, body) {
-                        if(!error) {
-                            console.log('LINK ', chalk.yellow(innerLink) + ' ' + _status.showStatus(response.statusCode));
-                            if(response.statusCode != 200){
-                                console.log(chalk.red('Problem on '));
-                                console.log(chalk.white($.html(elm)));
-                            }
-                        }
-                    });
+
+                catch (err) {
+
                 }
             }
-        }
+            else {
+                console.log('LIVE ' + innerLink);
+            }
 
-    });
+            try {
+                urls.push(url.resolve(rootUrl, innerLink));
+            }
+            catch (e) {
+            }
+        }
+    }
+    return urls;
 };
 
 
