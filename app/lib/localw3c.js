@@ -62,6 +62,7 @@ var runValidator =  function(rootUrl){
             else {
                 console.log('STATUS\t' + chalk.green('OK'));
             }
+            console.log('');
             var $ = cheerio.load(body);
             htmlvalidator.validateHtml($);
             var _links = links.linkChecker($, rootUrl);
