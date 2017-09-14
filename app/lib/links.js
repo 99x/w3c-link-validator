@@ -26,27 +26,33 @@ var linkChecker = function ($, rootUrl) {
 
 
     var urls = [];
-    for(var i=0; i<links.length; i++){
-        var innerLink = $(links[i]).attr('href');
-        if(typeof innerLink != 'undefined') {
-            if (isLocal(innerLink)) {
+    if(links.length == 0){
+        console.log();
+    }
+    else {
+        console.log(chalk.italic('Adding ' + links.length+ ' link(s) to the queue...\n'));
+        for (var i = 0; i < links.length; i++) {
+            var innerLink = $(links[i]).attr('href');
+            if (typeof innerLink != 'undefined') {
+                if (isLocal(innerLink)) {
+                    try {
+                        innerLink = url.resolve(rootUrl, innerLink);
+                        console.log('LOCAL ' + innerLink);
+                    }
+
+                    catch (err) {
+
+                    }
+                }
+                else {
+                    console.log('LIVE ' + innerLink);
+                }
+
                 try {
-                    innerLink = url.resolve(rootUrl, innerLink);
-                    console.log('LOCAL ' + innerLink);
+                    urls.push(url.resolve(rootUrl, innerLink));
                 }
-
-                catch (err) {
-
+                catch (e) {
                 }
-            }
-            else {
-                console.log('LIVE ' + innerLink);
-            }
-
-            try {
-                urls.push(url.resolve(rootUrl, innerLink));
-            }
-            catch (e) {
             }
         }
     }
