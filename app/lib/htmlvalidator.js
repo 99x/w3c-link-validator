@@ -12,13 +12,15 @@ var validateHtml = function ($) {
     }
 
     var imgs = $('img');
-    imgs.each(function (i,elm) {
-        if(typeof $(elm).attr('alt') == 'undefined'){
+    for(var i=0; i<imgs.length; i++) {
+        var elm = imgs[i];
+        if (typeof $(elm).attr('alt') == 'undefined') {
             alerts.alertWarning('alt attribute needs to be added');
             console.log($.html(elm));
             console.log('');
         }
-    });
+    }
+
 };
 
 
