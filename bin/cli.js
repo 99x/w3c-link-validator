@@ -2,7 +2,7 @@
 
 'use strict'
 
-var localw3c = require('./lib/localw3c');
+var localw3c = require('../src/localw3c');
 var program = require('commander');
 const version = "1.0.0";
 
