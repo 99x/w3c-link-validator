@@ -1,26 +1,54 @@
 var alerts = require('./alerts');
 var chalk = require('chalk');
+const figures = require('figures');
 
 var validateHtml = function ($) {
-    console.log(chalk.rgb(0,200,200)('[VALIDATING HTML]\n'));
+    var totalProblems = 0;
+    var totalSuggestions = 0;
 
-    var htmlTag = $('html');
+    console.log(chalk.yellow(figures.pointer) + chalk.rgb(200,200,200)(' Checking HTML guidelines..\n'));
 
-    if(htmlTag.length == 0){
-        alerts.alertWarning('<html> tag is missing.');
-        console.log('');
+    /*
+    *  Reference : https://google.github.io/styleguide/htmlcssguide.html
+    * */
+
+    /*
+    *  RULE 1 - !DOCTYPE syntax
+    *  Reference : https://google.github.io/styleguide/htmlcssguide.html#Document_Type
+    *
+    * */
+    if($.html().search('<!DOCTYPE') != 0){
+        alerts.alertWarning('The doctype is required just above the <html> tag, at the very start of each document you write.');
+        totalProblems++;
     }
+
+    /*
+    *  RULE 2 - alt attribute
+    *  Reference : https://google.github.io/styleguide/htmlcssguide.html#Multimedia_Fallback
+    *
+    * */
 
     var imgs = $('img');
     for(var i=0; i<imgs.length; i++) {
         var elm = imgs[i];
         if (typeof $(elm).attr('alt') == 'undefined') {
-            alerts.alertWarning('alt attribute needs to be added');
+            alerts.alertWarning('Make sure to offer alternative access. For images that means use of meaningful alternative text');
             console.log($.html(elm));
             console.log('');
+            totalProblems++;
         }
     }
 
+
+    console.log();
+    console.log('HTML SUMMARY');
+    if(totalProblems == 0 ){
+        console.log(chalk.rgb(0,200,0)(figures.tick) + ' no problem found');
+    }
+    else {
+        console.log(chalk.rgb(200,0,0)(figures.cross) + ' %d problem(s) found', totalProblems);
+    }
+    console.log();
 };
 
 
