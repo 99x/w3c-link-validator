@@ -7,14 +7,14 @@
 A Command line tool, identifying broken links, validate basic html standards and reporting 
 
 
-##Installation
+## Installation
 
 TODO
 
 
-##Tutorial
+## Tutorial
 
-####Test for a complete project.
+#### Test for a complete project.
 
 `
 $ localw3c check <url> [options]
@@ -34,9 +34,9 @@ $ locaw3c check http://localhost/htmlproject/ -v
 `
 
 
-##Contributing
+## Contributing
 
-###Installation
+### Installation
 Fork and clone it 
 
 `
