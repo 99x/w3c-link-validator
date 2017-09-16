@@ -2,6 +2,16 @@ var alerts = require('./alerts');
 var chalk = require('chalk');
 const figures = require('figures');
 
+var globalOptions = {
+    localUrl : '',
+    localHost : '',
+    verbose : true
+};
+
+var setGlobals = function (options) {
+    globalOptions = options;
+}
+
 var validateHtml = function ($) {
     var totalProblems = 0;
     var totalSuggestions = 0;
@@ -31,11 +41,24 @@ var validateHtml = function ($) {
     var imgs = $('img');
     for(var i=0; i<imgs.length; i++) {
         var elm = imgs[i];
-        if (typeof $(elm).attr('alt') == 'undefined') {
+        var elmAlt = $(elm).attr('alt');
+        var elmHtml = $.html(elm);
+
+        if (typeof elmAlt  == 'undefined') {
             alerts.alertWarning('Make sure to offer alternative access. For images that means use of meaningful alternative text');
-            console.log($.html(elm));
+            console.log(chalk.grey(elmHtml));
             console.log('');
             totalProblems++;
+        }
+        else{
+            if(globalOptions.verbose){
+                if(elmAlt == ''){
+                    alerts.alertSuggestion('alt attribute is empty. If this image targets SEO, add meaningful alternative text.');
+                    console.log(chalk.grey(elmHtml));
+                    console.log('');
+                    totalSuggestions++;
+                }
+            }
         }
     }
 
@@ -47,6 +70,9 @@ var validateHtml = function ($) {
     }
     else {
         console.log(chalk.rgb(200,0,0)(figures.cross) + ' %d problem(s) found', totalProblems);
+    }
+    if(totalSuggestions != 0){
+        console.log(chalk.rgb(200,200,0)(figures.info) + ' %d suggestions', totalProblems);
     }
     console.log();
 };
