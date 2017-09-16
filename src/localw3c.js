@@ -5,13 +5,18 @@ const cheerio = require('cheerio');
 const chalk = require('chalk');
 const links = require('./links');
 const htmlvalidator = require('./htmlvalidator');
+const alerts = require('./alerts');
+const figures = require('figures');
 
 var urlQueue = [];
 var crawledUrls = [];
+var totalLinkschecked = 0;
+var totalDeadLinks = 0;
 
 var globalOptions = {
     localUrl : '',
-    localHost : ''
+    localHost : '',
+    verbose : !true
 };
 
 var isLocal = function (link,root) {
@@ -30,6 +35,8 @@ var initValidator = function (options) {
     if(typeof globalOptions.localUrl != 'undefined') {
         globalOptions.localUrl = options.localUrl;
         globalOptions.localHost = url.parse(options.localUrl).host;
+        globalOptions.verbose = options.verbose;
+        links.setGlobals(globalOptions);
         urlQueue.push(options.localUrl);
     }
     else {
@@ -39,9 +46,7 @@ var initValidator = function (options) {
 
 var runValidator =  function(rootUrl){
     crawledUrls.push(rootUrl);
-    if(!isLocal(rootUrl)){
-        return;
-    }
+    totalLinkschecked++;
 
     urlQueue.splice(0,1);
 
@@ -58,32 +63,41 @@ var runValidator =  function(rootUrl){
         if(!error) {
             if(response.statusCode == 404){
                 console.log('STATUS\t' + chalk.rgb(255,0,0)('BROKEN'));
+                totalDeadLinks++;
             }
             else {
                 console.log('STATUS\t' + chalk.green('OK'));
             }
-            console.log('');
-            var $ = cheerio.load(body);
-            htmlvalidator.validateHtml($);
-            var _links = links.linkChecker($, rootUrl);
+            if(isLocal(rootUrl)) {
+                console.log('');
+                var $ = cheerio.load(body);
+                htmlvalidator.validateHtml($);
+                var _links = links.linkChecker($, rootUrl);
 
-            for (var i = 0; i < _links.length; i++) {
-                var _slink = _links[i].replace(/#.*/g,'');
-                if (crawledUrls.indexOf(_slink) == -1 && urlQueue.indexOf(_slink) == -1)
-                    if(isLocal(_slink))
+                for (var i = 0; i < _links.length; i++) {
+                    var _slink = _links[i].replace(/#.*/g, '');
+                    if (crawledUrls.indexOf(_slink) == -1 && urlQueue.indexOf(_slink) == -1)
+                    //if(isLocal(_slink))
                         urlQueue.push(_slink);
+                }
             }
 
 
 
         }
         else{
-            console.log(error);
+            alerts.alertError(error.message);
+            totalDeadLinks++;
         }
+
         if (urlQueue.length > 0) {
             var furl = urlQueue[0];
             runValidator(furl);
 
+        }
+        else{
+            displaySummary();
+            return;
         }
 
     });
@@ -91,6 +105,15 @@ var runValidator =  function(rootUrl){
 
 };
 
+
+var displaySummary = function () {
+    var deadRatio = totalDeadLinks / totalLinkschecked * 100;
+    console.log('');
+    console.log('SUMMARY');
+    console.log(chalk.yellow(figures.play) + ' Total links        : ' + totalLinkschecked );
+    console.log(chalk.rgb(200,0,0)(figures.cross)   + ' Dead links         : ' + totalDeadLinks);
+    console.log(chalk.rgb(200,0,0)(figures.cross)   + ' Dead link Ratio    : ' + deadRatio.toFixed(2) + '%');
+}
 
 module.exports.init = initValidator;
 module.exports.run = runValidator;

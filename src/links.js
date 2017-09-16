@@ -5,7 +5,8 @@ const _status = require('./status');
 
 var globalOptions = {
     localUrl : '',
-    localHost : ''
+    localHost : '',
+    verbose : true
 };
 
 var isLocal = function (link) {
@@ -37,7 +38,8 @@ var linkChecker = function ($, rootUrl) {
                 if (isLocal(innerLink)) {
                     try {
                         innerLink = url.resolve(rootUrl, innerLink);
-                        console.log('LOCAL ' + innerLink);
+                        if(globalOptions.verbose)
+                            console.log('LOCAL ' + innerLink);
                     }
 
                     catch (err) {
@@ -45,7 +47,8 @@ var linkChecker = function ($, rootUrl) {
                     }
                 }
                 else {
-                    console.log('LIVE ' + innerLink);
+                    if(globalOptions.verbose)
+                        console.log('LIVE ' + innerLink);
                 }
 
                 try {
