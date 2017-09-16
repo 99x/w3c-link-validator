@@ -16,7 +16,8 @@ var totalDeadLinks = 0;
 var globalOptions = {
     localUrl : '',
     localHost : '',
-    verbose : !true
+    verbose : true,
+    onlyhtml : false
 };
 
 var isLocal = function (link,root) {
@@ -36,6 +37,8 @@ var initValidator = function (options) {
         globalOptions.localUrl = options.localUrl;
         globalOptions.localHost = url.parse(options.localUrl).host;
         globalOptions.verbose = options.verbose;
+        globalOptions.onlyhtml = options.onlyhtml;
+
         links.setGlobals(globalOptions);
         urlQueue.push(options.localUrl);
     }
@@ -77,8 +80,8 @@ var runValidator =  function(rootUrl){
                 for (var i = 0; i < _links.length; i++) {
                     var _slink = _links[i].replace(/#.*/g, '');
                     if (crawledUrls.indexOf(_slink) == -1 && urlQueue.indexOf(_slink) == -1)
-                    //if(isLocal(_slink))
-                        urlQueue.push(_slink);
+                        if(!globalOptions.onlyhtml)
+                            urlQueue.push(_slink);
                 }
             }
 
