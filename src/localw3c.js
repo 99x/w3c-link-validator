@@ -1,6 +1,7 @@
 const url = require('url');
 const path = require('path');
 const request = require('request');
+const http = require('http');
 const cheerio = require('cheerio');
 const chalk = require('chalk');
 const links = require('./links');
@@ -60,16 +61,16 @@ var runValidator =  function(rootUrl){
 
     console.log('\n');
     console.log(chalk.rgb(0,200,200).bold(chalk.yellow(figures.play) +' '+ chalk.underline(_link)) + '\n');
-    console.log('BASE\t' + _base);
+    console.log('BASE\t' + (_base=='' ? '/' : _base));
 
     request(rootUrl, function (error, response, body) {
         if(!error) {
-            if(response.statusCode == 404){
-                console.log('STATUS\t' + chalk.rgb(255,0,0)('BROKEN'));
-                totalDeadLinks++;
+            if(response.statusCode == 200){
+                console.log('STATUS\t' + chalk.green('200 OK'));
             }
             else {
-                console.log('STATUS\t' + chalk.green('OK'));
+                console.log('STATUS\t' + chalk.rgb(200,0,0)(response.statusCode + ' ' + http.STATUS_CODES[response.statusCode]));
+                totalDeadLinks++;
             }
             if(isLocal(rootUrl)) {
                 console.log('');

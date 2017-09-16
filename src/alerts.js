@@ -9,7 +9,13 @@ var alertError = function (msg) {
     console.log(chalk.bgRed.black(' ERROR ') + ' ' + msg);
 }
 
+var alertSuggestion = function (msg) {
+    console.log(chalk.bgBlack.white(' SUGGESTION ') + ' ' + msg);
+}
+
+
 
 
 module.exports.alertWarning = alertWarning;
 module.exports.alertError = alertError;
+module.exports.alertSuggestion = alertSuggestion;
