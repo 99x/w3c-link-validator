@@ -59,7 +59,7 @@ var runValidator =  function(rootUrl){
     var _base = path.basename(urlinfo.pathname);
 
     console.log('\n');
-    console.log(chalk.rgb(0,200,200).bold('[VALIDATING URL]') + chalk.yellow(' ==> ') + _link + '\n');
+    console.log(chalk.rgb(0,200,200).bold(chalk.yellow(figures.play) +' '+ chalk.underline(_link)) + '\n');
     console.log('BASE\t' + _base);
 
     request(rootUrl, function (error, response, body) {
@@ -114,8 +114,8 @@ var displaySummary = function () {
     console.log('');
     console.log('SUMMARY');
     console.log(chalk.yellow(figures.play) + ' Total links        : ' + totalLinkschecked );
-    console.log(chalk.rgb(200,0,0)(figures.cross)   + ' Dead links         : ' + totalDeadLinks);
-    console.log(chalk.rgb(200,0,0)(figures.cross)   + ' Dead link Ratio    : ' + deadRatio.toFixed(2) + '%');
+    console.log((totalDeadLinks == 0 ? chalk.rgb(0,200,0)(figures.tick) :  chalk.rgb(200,0,0)(figures.cross))   + ' Dead links         : ' + totalDeadLinks);
+    console.log((totalDeadLinks == 0 ? chalk.rgb(0,200,0)(figures.tick) :  chalk.rgb(200,0,0)(figures.cross))   + ' Dead link Ratio    : ' + deadRatio.toFixed(2) + '%');
 }
 
 module.exports.init = initValidator;

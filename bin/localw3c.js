@@ -23,8 +23,6 @@ if(typeof program.check != 'undefined'){
     localw3c.exec();
 }
 
-console.log(program.args);
-
 
 
 
