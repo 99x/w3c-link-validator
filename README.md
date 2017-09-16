@@ -25,7 +25,7 @@ This command will start validation service for specific local url. URLs per each
 **Options**
 
 - `verbose` will show you anything during the validation. Eg hyperlinks per page.
-- `singlepage` will block the deep url traversing. Use if if you want to validate single page. 
+- `onlyhtml` will block the deep url traversing. Use if you want to validate html standards only. 
 
 Example 
 

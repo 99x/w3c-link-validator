@@ -8,7 +8,7 @@ const version = "1.0.0";
 
 
 program.version(version)
-    .option('check, --check <url> [verbose]', 'Validate links and html both');
+    .option('check, --check <url> [verbose] [onlyhtml]', 'Validate links and html both');
 
 
 program.parse(process.argv);
@@ -17,7 +17,8 @@ if(typeof program.check != 'undefined'){
     var url = program.check;
     localw3c.init({
         localUrl : url,
-        verbose : program.args.indexOf('verbose') != -1
+        verbose : program.args.indexOf('verbose') != -1,
+        onlyhtml : program.args.indexOf('onlyhtml') != -1
     });
     localw3c.exec();
 }
