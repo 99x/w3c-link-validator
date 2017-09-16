@@ -25,10 +25,12 @@
     "chalk": "^2.1.0",
     "cheerio": "^0.22.0",
     "commander": "^2.11.0",
+    "console.table": "^0.9.1",
+    "figures": "^2.0.0",
     "file-extension": "^3.1.2",
     "request": "^2.81.0"
   },
   "bin": {
-    "localw3c": "./bin/cli.js"
+    "localw3c": "./bin/localw3c.js"
   }
 }
