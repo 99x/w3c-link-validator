@@ -4,7 +4,7 @@
   "description": "Command line tool, identifying broken links, validate basic html standards and reporting",
   "main": "bin/cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
