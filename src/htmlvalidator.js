@@ -5,7 +5,8 @@ const figures = require('figures');
 var globalOptions = {
     localUrl : '',
     localHost : '',
-    verbose : true
+    verbose : true,
+    onlyhtml : false
 };
 
 var setGlobals = function (options) {
@@ -72,7 +73,7 @@ var validateHtml = function ($) {
         console.log(chalk.rgb(200,0,0)(figures.cross) + ' %d problem(s) found', totalProblems);
     }
     if(totalSuggestions != 0){
-        console.log(chalk.rgb(200,200,0)(figures.info) + ' %d suggestions', totalProblems);
+        console.log(chalk.rgb(200,200,0)(figures.info) + ' %d suggestion(s)', totalSuggestions);
     }
     console.log();
 };
@@ -80,3 +81,4 @@ var validateHtml = function ($) {
 
 
 module.exports.validateHtml = validateHtml;
+module.exports.setGlobals = setGlobals;
