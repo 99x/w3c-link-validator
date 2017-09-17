@@ -40,6 +40,7 @@ var initValidator = function (options) {
         globalOptions.verbose = options.verbose;
         globalOptions.onlyhtml = options.onlyhtml;
 
+        htmlvalidator.setGlobals(globalOptions);
         links.setGlobals(globalOptions);
         urlQueue.push(options.localUrl);
     }
@@ -63,7 +64,10 @@ var runValidator =  function(rootUrl){
     console.log(chalk.rgb(0,200,200).bold(chalk.yellow(figures.play) +' '+ chalk.underline(_link)) + '\n');
     console.log('BASE\t' + (_base=='' ? '/' : _base));
 
+    var startTime = new Date().getTime();
+
     request(rootUrl, function (error, response, body) {
+        var runtime = ((new Date().getTime() - startTime) / 1000).toFixed(2);
         if(!error) {
             if(response.statusCode == 200){
                 console.log('STATUS\t' + chalk.green('200 OK'));
@@ -72,6 +76,9 @@ var runValidator =  function(rootUrl){
                 console.log('STATUS\t' + chalk.rgb(200,0,0)(response.statusCode + ' ' + http.STATUS_CODES[response.statusCode]));
                 totalDeadLinks++;
             }
+
+            console.log('ELAPSED\t' + runtime + ' secs');
+
             if(isLocal(rootUrl)) {
                 console.log('');
                 var $ = cheerio.load(body);
