@@ -22,12 +22,14 @@
   },
   "homepage": "https://github.com/99xt/w3c-link-validator#readme",
   "dependencies": {
+    "chai": "^4.1.2",
     "chalk": "^2.1.0",
     "cheerio": "^0.22.0",
     "commander": "^2.11.0",
     "console.table": "^0.9.1",
     "figures": "^2.0.0",
     "file-extension": "^3.1.2",
+    "mocha": "^3.5.3",
     "request": "^2.81.0"
   },
   "bin": {
