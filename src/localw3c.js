@@ -27,6 +27,10 @@ var isLocal = function (link,root) {
     return (host == globalOptions.localHost || host==null);
 };
 
+var isHtmlResponse  = function(header){
+    return (header['content-type'].search('text/html') != -1);
+}
+
 
 var execute = function () {
     runValidator(urlQueue[0]);
@@ -79,7 +83,7 @@ var runValidator =  function(rootUrl){
 
             console.log('ELAPSED\t' + runtime + ' secs');
 
-            if(isLocal(rootUrl)) {
+            if(isLocal(rootUrl) && isHtmlResponse(response.headers)) {
                 console.log('');
                 var $ = cheerio.load(body);
                 htmlvalidator.validateHtml($);

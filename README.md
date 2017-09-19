@@ -30,7 +30,7 @@ This command will start validation service for specific local url. URLs per each
 Example 
 
 `
-$ localw3c check http://localhost/htmlproject/ -v
+$ localw3c check http://localhost/htmlproject/ verbose
 `
 
 

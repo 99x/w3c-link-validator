@@ -21,6 +21,7 @@ var validateHtml = function ($) {
 
     /*
     *  Reference : https://google.github.io/styleguide/htmlcssguide.html
+    *  https://www.w3.org/TR/html5/syntax.html#obsolete-permitted-doctype
     * */
 
     /*
