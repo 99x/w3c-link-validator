@@ -64,6 +64,74 @@ var validateHtml = function ($) {
         }
     }
 
+    /*
+     *  RULE 3 - obsolete elements
+     *  Reference https://www.w3.org/TR/html51/obsolete.html#non-conforming-features
+     *  TODO - all obsolete elements should be added to obsoleteTags array below.
+     *
+     */
+    /* applets */
+    var obsoleteTags = [
+        {
+            tag : 'applet',
+            error : '<applet> is entirely obsolete, and must not be used by authors.',
+            solution : 'Use <embed> or <object> instead'
+        },
+        {
+            tag : 'acronym',
+            error : '<acronym> is entirely obsolete, and must not be used by authors.',
+            solution : 'Use <abbr> instead.'
+        }
+    ];
+    for(var obsoleteTagIndex  in obsoleteTags){
+        var obsoleteTag = obsoleteTags[obsoleteTagIndex];
+        var obsoleteTagDom = $(obsoleteTag.tag);
+        for(var i=0; i<obsoleteTagDom.length; i++){
+            var obsoleteTagHtml = $.html(obsoleteTagDom[i]);
+            alerts.alertWarning(obsoleteTag.error + ' ' +  obsoleteTag.solution);
+            console.log(chalk.grey(obsoleteTagHtml));
+            totalProblems++;
+        }
+    }
+
+
+    /*
+    *  RULE 4 - obsolete attributes
+    *  Reference  https://w3c.github.io/html/obsolete.html#element-attrdef-a-charset
+    *  TODO - all other obsolete attributes to obsoleteAttributes array
+    * */
+
+
+    var obsoleteAttributes = [
+        {
+            tags : 'a',
+            attribute : 'charset',
+            error : 'charset attribute in <a> is entirely obsolete, and must not be used by authors',
+            solution : ''
+        }
+        ,
+        {
+            tags : 'h1,h2,h3,h4,h5,h6',
+            attribute : 'align',
+            error : 'align attribute in <h1>..<h6> is entirely obsolete, and must not be used by authors',
+            solution : 'use CSS instead.'
+        }
+    ];
+
+    for(var obsoleteAttributesIndex in obsoleteAttributes){
+        var obsoleteAttribute = obsoleteAttributes[obsoleteAttributesIndex];
+        var obsoleteAttributeDom = $(obsoleteAttribute.tags);
+        for(var i=0; i<obsoleteAttributeDom.length; i++){
+            if(typeof $(obsoleteAttributeDom[i]).attr(obsoleteAttribute.attribute) != 'undefined'){
+                var obsoleteAttributeHtml = $.html(obsoleteAttributeDom[i]);
+                alerts.alertWarning(obsoleteAttribute.error+ ' ' + obsoleteAttribute.solution);
+                console.log(chalk.grey(obsoleteAttributeHtml));
+                totalProblems++;
+            }
+        }
+
+    }
+
 
     console.log();
     console.log('HTML SUMMARY');
