@@ -13,6 +13,10 @@ var urlQueue = [];
 var crawledUrls = [];
 var totalLinkschecked = 0;
 var totalDeadLinks = 0;
+var validationResult = {
+    problems : 0,
+    suggestions : 0
+};
 
 var globalOptions = {
     localUrl : '',
@@ -86,7 +90,9 @@ var runValidator =  function(rootUrl){
             if(isLocal(rootUrl) && isHtmlResponse(response.headers)) {
                 console.log('');
                 var $ = cheerio.load(body);
-                htmlvalidator.validateHtml($);
+                var htmlValidation = htmlvalidator.validateHtml($);
+                validationResult.problems += htmlValidation.problems;
+                validationResult.suggestions += htmlValidation.suggestions;
                 var _links = links.linkChecker($, rootUrl);
 
                 for (var i = 0; i < _links.length; i++) {
@@ -124,10 +130,16 @@ var runValidator =  function(rootUrl){
 var displaySummary = function () {
     var deadRatio = totalDeadLinks / totalLinkschecked * 100;
     console.log('');
-    console.log('SUMMARY');
-    console.log(chalk.yellow(figures.play) + ' Total links        : ' + totalLinkschecked );
+    console.log('OVERALL LINK SUMMARY');
+    console.log(chalk.rgb(0,200,0)(figures.tick) + ' Total links        : ' + totalLinkschecked );
     console.log((totalDeadLinks == 0 ? chalk.rgb(0,200,0)(figures.tick) :  chalk.rgb(200,0,0)(figures.cross))   + ' Dead links         : ' + totalDeadLinks);
     console.log((totalDeadLinks == 0 ? chalk.rgb(0,200,0)(figures.tick) :  chalk.rgb(200,0,0)(figures.cross))   + ' Dead link Ratio    : ' + deadRatio.toFixed(2) + '%');
+
+    console.log('');
+    console.log('OVERALL HTML SUMMARY');
+    console.log((validationResult.problems == 0 ? chalk.rgb(0,200,0)(figures.tick) :  chalk.rgb(200,0,0)(figures.cross))   + ' HTML Problems      : ' + validationResult.problems);
+    if(globalOptions.verbose)
+        console.log((validationResult.suggestions == 0 ? chalk.rgb(200,200,0)(figures.info) :  chalk.rgb(200,200,0)(figures.info))   + ' HTML Suggestions   : ' + validationResult.suggestions);
 }
 
 module.exports.init = initValidator;
