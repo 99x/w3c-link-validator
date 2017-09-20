@@ -9,6 +9,9 @@ var globalOptions = {
     onlyhtml : false
 };
 
+var totalHtmlProblems = 0;
+var totalHtmlSuggestions = 0;
+
 var setGlobals = function (options) {
     globalOptions = options;
 }
@@ -145,6 +148,16 @@ var validateHtml = function ($) {
         console.log(chalk.rgb(200,200,0)(figures.info) + ' %d suggestion(s)', totalSuggestions);
     }
     console.log();
+
+    totalHtmlProblems = totalProblems;
+    totalHtmlSuggestions = totalSuggestions;
+
+    var prop = {
+        problems : totalHtmlProblems,
+        suggestions : totalHtmlSuggestions
+    };
+
+    return prop;
 };
 
 

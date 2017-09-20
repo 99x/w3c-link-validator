@@ -10,7 +10,7 @@ var alertError = function (msg) {
 }
 
 var alertSuggestion = function (msg) {
-    console.log(chalk.bgBlack.white(' SUGGESTION ') + ' ' + msg);
+    console.log(chalk.bgBlue.white(' SUGGESTION ') + ' ' + msg);
 }
 
 
