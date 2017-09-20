@@ -23,12 +23,13 @@ var validateHtml = function ($) {
     console.log(chalk.yellow(figures.pointer) + chalk.rgb(200,200,200)(' Checking HTML guidelines..\n'));
 
     /*
-    *  Reference : https://google.github.io/styleguide/htmlcssguide.html
+    *  References
+    *  https://google.github.io/styleguide/htmlcssguide.html
     *  https://www.w3.org/TR/html5/syntax.html#obsolete-permitted-doctype
     * */
 
     /*
-    *  RULE 1 - !DOCTYPE syntax
+    *  RULE 1 - Required tags - !DOCTYPE syntax, html, head, title and body
     *  Reference : https://google.github.io/styleguide/htmlcssguide.html#Document_Type
     *
     * */
@@ -36,6 +37,54 @@ var validateHtml = function ($) {
         alerts.alertWarning('The doctype is required just above the <html> tag, at the very start of each document you write.');
         totalProblems++;
     }
+
+    var requiredTags = [
+        {
+            tag : 'html',
+            error : '<html> tag should be appeared just after the doctype declaration',
+            root : null,
+            rootError : null
+        },
+        {
+            tag : 'head',
+            error : '<head> tag should be appeared',
+            root : 'html',
+            rootError : '<head> should be added inside <html>'
+        },
+        {
+            tag : 'title',
+            error : '<title> tag should be appeared in order to display the title of document',
+            root : 'head',
+            rootError : '<title> should be added inside <head>'
+        },
+        {
+            tag : 'body',
+            error : 'The content of web page should be wrapped with <body> tag',
+            root : 'html',
+            rootError : '<body> should be added inside <html>'
+        },
+    ];
+
+    for(var requireTagsIndex in requiredTags){
+        var requiredTag = requiredTags[requireTagsIndex];
+        var requiredTagDom = $(requiredTag.tag);
+        if(requiredTagDom.length == 0){
+            alerts.alertError(requiredTag.error);
+            totalProblems++;
+        }
+        else if(requiredTag.root != null){
+            var childNode = $(requiredTag.root + ' ' + requiredTag.tag);
+            if(childNode.length == 0){
+                alerts.alertError(requiredTag.rootError);
+                totalProblems++;
+            }
+        }
+    }
+
+
+
+
+
 
     /*
     *  RULE 2 - alt attribute
@@ -73,7 +122,6 @@ var validateHtml = function ($) {
      *  TODO - all obsolete elements should be added to obsoleteTags array below.
      *
      */
-    /* applets */
     var obsoleteTags = [
         {
             tag : 'applet',
