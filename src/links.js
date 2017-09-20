@@ -28,7 +28,7 @@ var linkChecker = function ($, rootUrl) {
 
     var urls = [];
     if(links.length == 0){
-        console.log();
+
     }
     else {
         console.log(chalk.italic('Adding ' + links.length+ ' link(s) to the queue...\n'));
