@@ -31,6 +31,6 @@
     "request": "^2.81.0"
   },
   "bin": {
-    "localw3c": "./bin/w3clink.js"
+    "w3clink": "./bin/w3clink.js"
   }
 }
