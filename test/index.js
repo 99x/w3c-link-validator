@@ -1,4 +1,4 @@
-const localw3c = require('./../bin/localw3c');
+const localw3c = require('../bin/w3clink');
 const assert = require('chai').assert;
 
 
