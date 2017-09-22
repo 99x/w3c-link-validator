@@ -6,7 +6,8 @@ var globalOptions = {
     localUrl : '',
     localHost : '',
     verbose : true,
-    onlyhtml : false
+    onlyhtml : false,
+    suggestions : false
 };
 
 var totalHtmlProblems = 0;
@@ -121,7 +122,7 @@ var validateHtml = function ($) {
                     alerts.alertWarning(requiredAttribute.error);
                 }
                 else {
-                    if(globalOptions.verbose)
+                    if(globalOptions.suggestions)
                         alerts.alertSuggestion(requiredAttribute.error);
                 }
 
@@ -130,7 +131,7 @@ var validateHtml = function ($) {
                 totalProblems++;
             }
             else{
-                if(globalOptions.verbose && requiredAttribute.showEmptySuggestion){
+                if(globalOptions.suggestions && requiredAttribute.showEmptySuggestion){
                     if(elmAttrib == ''){
                         alerts.alertSuggestion(requiredAttribute.emptySuggestion);
                         console.log(chalk.grey(elmHtml));

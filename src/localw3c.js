@@ -22,7 +22,8 @@ var globalOptions = {
     localUrl : '',
     localHost : '',
     verbose : true,
-    onlyhtml : false
+    onlyhtml : false,
+    suggestions : false
 };
 
 var isLocal = function (link,root) {
@@ -47,6 +48,7 @@ var initValidator = function (options) {
         globalOptions.localHost = url.parse(options.localUrl).host;
         globalOptions.verbose = options.verbose;
         globalOptions.onlyhtml = options.onlyhtml;
+        globalOptions.suggestions = options.suggestions;
 
         htmlvalidator.setGlobals(globalOptions);
         links.setGlobals(globalOptions);

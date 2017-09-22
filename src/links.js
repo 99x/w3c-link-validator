@@ -1,12 +1,12 @@
 const url = require('url');
-const request = require('request');
 const chalk = require('chalk');
-const _status = require('./status');
 
 var globalOptions = {
     localUrl : '',
     localHost : '',
-    verbose : true
+    verbose : true,
+    onlyhtml : false,
+    suggestions : false
 };
 
 var isLocal = function (link) {
@@ -39,7 +39,7 @@ var linkChecker = function ($, rootUrl) {
                     try {
                         innerLink = url.resolve(rootUrl, innerLink);
                         if(globalOptions.verbose)
-                            console.log('LOCAL ' + chalk.grey(innerLink));
+                            console.log('INT  ' + chalk.grey(innerLink));
                     }
 
                     catch (err) {
@@ -48,7 +48,7 @@ var linkChecker = function ($, rootUrl) {
                 }
                 else {
                     if(globalOptions.verbose)
-                        console.log('LIVE  ' +  chalk.grey(innerLink));
+                        console.log('EXT  ' +  chalk.grey(innerLink));
                 }
 
                 try {
