@@ -65,3 +65,4 @@ var linkChecker = function ($, rootUrl) {
 
 module.exports.linkChecker = linkChecker;
 module.exports.setGlobals = setGlobals;
+module.exports.isLocal = isLocal;
