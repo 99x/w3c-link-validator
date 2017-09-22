@@ -87,34 +87,63 @@ var validateHtml = function ($) {
 
 
     /*
-    *  RULE 2 - alt attribute
+    *  RULE 2 - Required Attributes
     *  Reference : https://google.github.io/styleguide/htmlcssguide.html#Multimedia_Fallback
     *
     * */
 
-    var imgs = $('img');
-    for(var i=0; i<imgs.length; i++) {
-        var elm = imgs[i];
-        var elmAlt = $(elm).attr('alt');
-        var elmHtml = $.html(elm);
 
-        if (typeof elmAlt  == 'undefined') {
-            alerts.alertWarning('Make sure to offer alternative access. For images that means use of meaningful alternative text');
-            console.log(chalk.grey(elmHtml));
-            console.log('');
-            totalProblems++;
+    var requiredAttribs = [
+        {
+            tag : 'img',
+            attribute : 'alt',
+            error : 'Make sure to offer alternative access. For images that means use of meaningful alternative text',
+            level : 1,
+            showEmptySuggestion : true,
+            emptySuggestion : 'Make sure to offer alternative access. For images that means use of meaningful alternative text'
         }
-        else{
-            if(globalOptions.verbose){
-                if(elmAlt == ''){
-                    alerts.alertSuggestion('alt attribute is empty. If this image targets SEO, add meaningful alternative text.');
-                    console.log(chalk.grey(elmHtml));
-                    console.log('');
-                    totalSuggestions++;
+    ];
+
+
+    for(var requiredAttributesIndex in requiredAttribs){
+        var requiredAttribute = requiredAttribs[requiredAttributesIndex];
+        var requiredAttributesDom = $(requiredAttribute.tag);
+        for(var i=0; i<requiredAttributesDom.length; i++) {
+            var elm = requiredAttributesDom[i];
+            var elmAttrib = $(elm).attr(requiredAttribute.attribute);
+            var elmHtml = $.html(elm);
+
+            if (typeof elmAttrib  == 'undefined') {
+                if(requiredAttribute.level == 0) {
+                    alerts.alertError(requiredAttribute.error);
+                }
+                else if(requiredAttribute.level == 1) {
+                    alerts.alertWarning(requiredAttribute.error);
+                }
+                else {
+                    if(globalOptions.verbose)
+                        alerts.alertSuggestion(requiredAttribute.error);
+                }
+
+                console.log(chalk.grey(elmHtml));
+                console.log('');
+                totalProblems++;
+            }
+            else{
+                if(globalOptions.verbose && requiredAttribute.showEmptySuggestion){
+                    if(elmAttrib == ''){
+                        alerts.alertSuggestion(requiredAttribute.emptySuggestion);
+                        console.log(chalk.grey(elmHtml));
+                        console.log('');
+                        totalSuggestions++;
+                    }
                 }
             }
         }
     }
+
+
+
 
     /*
      *  RULE 3 - obsolete elements
