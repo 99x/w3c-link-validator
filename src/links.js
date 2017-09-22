@@ -1,7 +1,5 @@
 const url = require('url');
-const request = require('request');
 const chalk = require('chalk');
-const _status = require('./status');
 
 var globalOptions = {
     localUrl : '',
