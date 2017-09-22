@@ -4,7 +4,9 @@ const chalk = require('chalk');
 var globalOptions = {
     localUrl : '',
     localHost : '',
-    verbose : true
+    verbose : true,
+    onlyhtml : false,
+    suggestions : false
 };
 
 var isLocal = function (link) {
