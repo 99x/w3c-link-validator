@@ -37,7 +37,7 @@ var linkChecker = function ($, rootUrl) {
                     try {
                         innerLink = url.resolve(rootUrl, innerLink);
                         if(globalOptions.verbose)
-                            console.log('LOCAL ' + chalk.grey(innerLink));
+                            console.log('INT  ' + chalk.grey(innerLink));
                     }
 
                     catch (err) {
@@ -46,7 +46,7 @@ var linkChecker = function ($, rootUrl) {
                 }
                 else {
                     if(globalOptions.verbose)
-                        console.log('LIVE  ' +  chalk.grey(innerLink));
+                        console.log('EXT  ' +  chalk.grey(innerLink));
                 }
 
                 try {
