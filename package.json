@@ -2,7 +2,7 @@
   "name": "w3c-link-validator",
   "version": "1.0.0",
   "description": "Command line tool, identifying broken links, validate basic html standards and reporting",
-  "main": "bin/cli.js",
+  "main": "./src/w3clink.js",
   "scripts": {
     "test": "mocha"
   },
@@ -31,6 +31,6 @@
     "request": "^2.81.0"
   },
   "bin": {
-    "localw3c": "./bin/localw3c.js"
+    "localw3c": "./bin/w3clink.js"
   }
 }
