@@ -43,7 +43,7 @@ var linkChecker = function ($, rootUrl) {
                     }
 
                     catch (err) {
-
+                        console.error('URL Parse error.');
                     }
                 }
                 else {
@@ -54,7 +54,8 @@ var linkChecker = function ($, rootUrl) {
                 try {
                     urls.push(url.resolve(rootUrl, innerLink));
                 }
-                catch (e) {
+                catch (err) {
+                    console.error('URL Parse error.');
                 }
             }
         }

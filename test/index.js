@@ -1,24 +1,12 @@
 const localw3c = require('../bin/w3clink');
 const alerts = require('../src/alerts.js');
+const fs = require('fs');
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 var htmlvalidator = require('../src/htmlvalidator');
 var links = require('../src/links');
 
-const sampleHTML = '<!DOCTYPE html>\n' +
-    '\n' +
-    '<html lang="en">\n' +
-    '<head>\n' +
-    '  <meta charset="utf-8">\n' +
-    '  <title>The HTML5 Herald</title>\n' +
-    '  <meta name="description" content="The HTML5 Herald">\n' +
-    '  <meta name="author" content="SitePoint">\n' +
-    '  <link rel="stylesheet" href="css/styles.css?v=1.0">\n' +
-    '</head>\n' +
-    '<body>\n' +
-    '  <h1>Hello World<h2>' +
-    '</body>\n' +
-    '</html>';
+const sampleHTML = fs.readFileSync(process.cwd() + '/test/testHTML.html','utf8');
 
 const cheerio = require('cheerio');
 
@@ -61,7 +49,7 @@ describe('HTML Validator',function () {
         assert.equal(typeof result, 'undefined');
     });
     
-    it('Sample HTML validation Should return object', function () {
+    it('Sample HTML validation Should return an object', function () {
         var $ = cheerio.load(sampleHTML);
         var result = htmlvalidator.validateHtml($);
         expect(result).to.be.a('object');
@@ -96,6 +84,12 @@ describe('Links', function () {
         });
         var result = links.isLocal('http://www.example.com/samplepage/');
         assert.equal(result, false);
+    });
+
+    it('linkChecker should return an array', function(){
+        var $ = cheerio.load(sampleHTML);
+        var result = links.linkChecker($,'http://localhost/samplepage/');
+        expect(result).to.be.a('array');
     });
 
 });
