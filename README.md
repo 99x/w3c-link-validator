@@ -5,21 +5,51 @@
 [![Build Status](https://travis-ci.org/shalithasuranga/w3c-link-validator.svg?branch=master)](https://travis-ci.org/shalithasuranga/w3c-link-validator)
 [![Coverage Status](https://coveralls.io/repos/github/shalithasuranga/w3c-link-validator/badge.svg?branch=master)](https://coveralls.io/github/shalithasuranga/w3c-link-validator?branch=master)
 
-A Command line tool, identifying broken links, validate basic html standards and reporting 
+Very good command line tool for W3C validation, broken link detection of your local development or production URL.
 
 
 ## Installation
 
-TODO
+
+Install with the terminal.
+
+```bash
+$ npm install w3c-link-validator -g
+```
+
+After installation `w3clink` command will be available globally.
 
 
 ## Tutorial
 
-#### Test for a complete project.
+See the command line help first.
+
+```bash
+$ w3clink --help
+```
+
+
+```bash
+
+  Usage: w3clink [options]
+
+
+  Options:
+
+    -V, --version                                            output the version number
+    check, --check <url> [verbose] [onlyhtml] [suggestions]  Validate links and html both
+    -h, --help                                               output usage information
+
+```
+
+
+
 
 `
-$ localw3c check <url> [options]
+$ w3clink check <url> [options]
 `
+
+
 
 This command will start validation service for specific local url. URLs per each page will be tested recursively.
 
