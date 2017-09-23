@@ -162,6 +162,47 @@ var validateHtml = function ($) {
             tag : 'acronym',
             error : '<acronym> is entirely obsolete, and must not be used by authors.',
             solution : 'Use <abbr> instead.'
+        },
+        {
+            tag : 'bgsound',
+            error : '<bgsound> is entirely obsolete, and must not be used by authors.',
+            solution : 'Use <audio> instead.'
+        },
+        {
+            tag : 'dir',
+            error : '<dir> is entirely obsolete, and must not be used by authors.',
+            solution : 'Use <ul> instead.'
+        },
+        {
+            tag : 'frame',
+            error : '<frame> is entirely obsolete, and must not be used by authors.',
+            solution : 'Either use <iframe> and CSS instead, or use server-side includes to generate complete pages with the various invariant parts merged in.'
+        },
+        {
+            tag : 'frameset',
+            error : '<frameset> is entirely obsolete, and must not be used by authors.',
+            solution : 'Either use <iframe> and CSS instead, or use server-side includes to generate complete pages with the various invariant parts merged in.'
+        },
+        {
+            tag : 'noframes',
+            error : '<noframes> is entirely obsolete, and must not be used by authors.',
+            solution : 'Either use <iframe> and CSS instead, or use server-side includes to generate complete pages with the various invariant parts merged in.'
+        },
+        {
+            tag : 'hgroup',
+            error : '<hgroup> is entirely obsolete, and must not be used by authors.',
+            solution : 'To mark up subheadings, consider putting the subheading into a p element after the h1-h6 element containing the main heading, or putting the subheading directly within the h1-h6 element containing the main heading, but separated from the main heading by punctuation and/or within, for example, a span class="subheading" element with differentiated styling.\n' +
+            'Headings and subheadings, alternative titles, or taglines can be grouped using the header or div elements.'
+        },
+        {
+            tag : 'isindex',
+            error : '<isindex> is entirely obsolete, and must not be used by authors.',
+            solution : 'Use an explicit form and text field combination instead.'
+        },
+        {
+            tag : 'listing',
+            error : '<listing> is entirely obsolete, and must not be used by authors.',
+            solution : 'Use pre and code instead.'
         }
     ];
     for(var obsoleteTagIndex  in obsoleteTags){
@@ -185,12 +226,60 @@ var validateHtml = function ($) {
 
     var obsoleteAttributes = [
         {
-            tags : 'a',
+            tags : 'a,link',
             attribute : 'charset',
-            error : 'charset attribute in <a> is entirely obsolete, and must not be used by authors',
-            solution : ''
-        }
-        ,
+            error : 'charset attribute in <link>,<a> is entirely obsolete, and must not be used by authors',
+            solution : 'Use an HTTP Content-Type header on the linked resource instead.'
+        },
+        {
+            tags : 'a',
+            attribute : 'coords',
+            error : 'coords attribute in <a> is entirely obsolete, and must not be used by authors',
+            solution : 'Use area instead of a for image maps.'
+        },
+        {
+            tags : 'a',
+            attribute : 'shape',
+            error : 'shape attribute in <a> is entirely obsolete, and must not be used by authors',
+            solution : 'Use area instead of a for image maps.'
+        },
+        {
+            tags : 'a,link',
+            attribute : 'methods',
+            error : 'methods attribute in <link>,<a> is entirely obsolete, and must not be used by authors',
+            solution : 'Use the HTTP OPTIONS feature instead.'
+        },
+        {
+            tags : 'a,embed,img,option',
+            attribute : 'name',
+            error : 'name attribute in <a>,<embed>,<img>,<option> is entirely obsolete, and must not be used by authors',
+            solution : 'Use the id attribute instead.'
+        },
+        {
+            tags : 'a,link',
+            attribute : 'urn',
+            error : 'urn attribute in <link>,<a> is entirely obsolete, and must not be used by authors',
+            solution : 'Specify the preferred persistent identifier using the href attribute instead.'
+        },
+        {
+            tags : 'form',
+            attribute : 'accept',
+            error : 'accept attribute in <form> is entirely obsolete, and must not be used by authors',
+            solution : 'Use the accept attribute directly on the input elements instead.'
+        },
+        {
+            tags : 'area',
+            attribute : 'nohref',
+            error : 'nohref attribute in <area> is entirely obsolete, and must not be used by authors',
+            solution : 'Omitting the href attribute is sufficient; the nohref attribute is unnecessary. Omit it altogether.'
+        },
+        {
+            tags : 'head',
+            attribute : 'profile',
+            error : 'profile attribute in <head> is entirely obsolete, and must not be used by authors',
+            solution : 'When used for declaring which meta terms are used in the document, unnecessary; omit it altogether, and register the names.\n' +
+            'When used for triggering specific user agent behaviors: use a link element instead.'
+        },
         {
             tags : 'h1,h2,h3,h4,h5,h6',
             attribute : 'align',
