@@ -26,7 +26,7 @@ var globalOptions = {
     suggestions : false
 };
 
-var isLocal = function (link,root) {
+var isLocal = function (link) {
     var urlinfo = url.parse(link);
     var host = urlinfo.host;
     return (host == globalOptions.localHost || host==null);
@@ -62,7 +62,6 @@ var initValidator = function (options) {
 var runValidator =  function(rootUrl){
     crawledUrls.push(rootUrl);
     totalLinkschecked++;
-
     urlQueue.splice(0,1);
 
 
@@ -147,3 +146,5 @@ var displaySummary = function () {
 module.exports.init = initValidator;
 module.exports.run = runValidator;
 module.exports.exec = execute;
+module.exports.isLocal = isLocal;
+module.exports.isHtmlResponse = isHtmlResponse;
