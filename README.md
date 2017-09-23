@@ -93,6 +93,8 @@ $ npm link
 
 #### Crawling algorithm
 
+![alt text](https://cdn.rawgit.com/shalithasuranga/w3c-link-validator/docs/media/crawlingalgofc.png "Crawling algorithm flowchart")
+
 
 
 ## License
