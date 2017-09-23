@@ -8,6 +8,9 @@ var links = require('../src/links');
 
 const sampleHTML = fs.readFileSync(process.cwd() + '/test/testHTML.html','utf8');
 const sampleHTMLRule1 = fs.readFileSync(process.cwd() + '/test/testHTML-rule1.html','utf8');
+const sampleHTMLRule2 = fs.readFileSync(process.cwd() + '/test/testHTML-rule2.html','utf8');
+const sampleHTMLRule3 = fs.readFileSync(process.cwd() + '/test/testHTML-rule3.html','utf8');
+const sampleHTMLRule4 = fs.readFileSync(process.cwd() + '/test/testHTML-rule4.html','utf8');
 
 const cheerio = require('cheerio');
 
@@ -61,6 +64,32 @@ describe('HTML Validator',function () {
         var result = htmlvalidator.validateHtml($);
         expect(result).to.be.a('object');
     });
+
+    it('Sample HTML(Violates RULE SET #2) validation Should return an object', function () {
+        htmlvalidator.setGlobals({
+            localUrl : '',
+            localHost : '',
+            verbose : true,
+            onlyhtml : false,
+            suggestions : true
+        });
+        var $ = cheerio.load(sampleHTMLRule2);
+        var result = htmlvalidator.validateHtml($);
+        expect(result).to.be.a('object');
+    });
+
+    it('Sample HTML(Violates RULE SET #3) validation Should return an object', function () {
+        var $ = cheerio.load(sampleHTMLRule3);
+        var result = htmlvalidator.validateHtml($);
+        expect(result).to.be.a('object');
+    });
+
+    it('Sample HTML(Violates RULE SET #4) validation Should return an object', function () {
+        var $ = cheerio.load(sampleHTMLRule4);
+        var result = htmlvalidator.validateHtml($);
+        expect(result).to.be.a('object');
+    });
+
 });
 
 
