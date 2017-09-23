@@ -5,7 +5,8 @@
 [![Build Status](https://travis-ci.org/shalithasuranga/w3c-link-validator.svg?branch=master)](https://travis-ci.org/shalithasuranga/w3c-link-validator)
 [![Coverage Status](https://coveralls.io/repos/github/shalithasuranga/w3c-link-validator/badge.svg?branch=master)](https://coveralls.io/github/shalithasuranga/w3c-link-validator?branch=master)
 
-Very good command line tool for W3C validation, broken link detection of your local development or production URL.
+Very good command line tool for W3C validation and broken link detection of your local development or production URL.
+Validation errors,warnings or suggestions will be reported to terminal.
 
 
 ## Installation
@@ -21,6 +22,8 @@ After installation `w3clink` command will be available globally.
 
 
 ## Tutorial
+
+#### Get started
 
 See the command line help first.
 
@@ -42,45 +45,53 @@ $ w3clink --help
 
 ```
 
+#### Validation command
 
 
-
-`
+```bash
 $ w3clink check <url> [options]
-`
+```
 
 
-
-This command will start validation service for specific local url. URLs per each page will be tested recursively.
+This command will start validation service for specific URL. URLs per each page will be tested recursively.
 
 **Options**
 
 - `verbose` will show you anything during the validation. Eg hyperlinks per page.
 - `onlyhtml` will block the deep url traversing. Use if you want to validate html standards only. 
+- `suggestions` will log the suggestions also.
 
 Example 
 
-`
-$ localw3c check http://localhost/htmlproject/ verbose
-`
+```bash
+$ w3clink check http://localhost/w3ctest/ suggestions
+```
 
 
 ## Contributing
 
-### Installation
-Fork and clone it 
+#### Development setup
 
-`
+Fork and clone repo 
+
+```bash
 $ git clone https://github.com/<username>/w3c-link-validator.git
-`
+```
 
 Install dependencies
 
-`
+```bash
 $ npm install
-`
+```
 
 
+#### Crawling algorithm
+
+
+
+## License
+
+MIT © [99XT](https://github.com/99xt)
 
 
 
