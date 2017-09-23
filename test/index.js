@@ -7,6 +7,7 @@ var htmlvalidator = require('../src/htmlvalidator');
 var links = require('../src/links');
 
 const sampleHTML = fs.readFileSync(process.cwd() + '/test/testHTML.html','utf8');
+const sampleHTMLRule1 = fs.readFileSync(process.cwd() + '/test/testHTML-rule1.html','utf8');
 
 const cheerio = require('cheerio');
 
@@ -51,6 +52,12 @@ describe('HTML Validator',function () {
     
     it('Sample HTML validation Should return an object', function () {
         var $ = cheerio.load(sampleHTML);
+        var result = htmlvalidator.validateHtml($);
+        expect(result).to.be.a('object');
+    });
+
+    it('Sample HTML(Violates RULE SET #1) validation Should return an object', function () {
+        var $ = cheerio.load(sampleHTMLRule1);
         var result = htmlvalidator.validateHtml($);
         expect(result).to.be.a('object');
     });
