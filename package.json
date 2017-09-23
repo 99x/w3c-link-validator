@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha test/index.js",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls": "istanbul cover node_modules/mocha/bin/_mocha | coveralls"
   },
   "repository": {
     "type": "git",
