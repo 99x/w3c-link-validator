@@ -2,7 +2,7 @@
 
 'use strict'
 
-var localw3c = require('../src/w3clink');
+var w3clink = require('../src/w3clink');
 var program = require('commander');
 const version = "1.0.0";
 
@@ -16,13 +16,13 @@ var cliApp = function () {
 
     if (typeof program.check != 'undefined') {
         var url = program.check;
-        localw3c.init({
+        w3clink.init({
             localUrl : url,
             verbose : program.args.indexOf('verbose') != -1,
             onlyhtml : program.args.indexOf('onlyhtml') != -1,
             suggestions : program.args.indexOf('suggestions') != -1
         });
-        localw3c.exec();
+        w3clink.exec();
     }
 
     return true;

@@ -1,4 +1,5 @@
-const localw3c = require('../bin/w3clink');
+const w3clinkBin = require('../bin/w3clink');
+const w3clink = require('../src/w3clink');
 const alerts = require('../src/alerts.js');
 const fs = require('fs');
 const assert = require('chai').assert;
@@ -7,13 +8,17 @@ var htmlvalidator = require('../src/htmlvalidator');
 var links = require('../src/links');
 
 const sampleHTML = fs.readFileSync(process.cwd() + '/test/testHTML.html','utf8');
+const sampleHTMLRule1 = fs.readFileSync(process.cwd() + '/test/testHTML-rule1.html','utf8');
+const sampleHTMLRule2 = fs.readFileSync(process.cwd() + '/test/testHTML-rule2.html','utf8');
+const sampleHTMLRule3 = fs.readFileSync(process.cwd() + '/test/testHTML-rule3.html','utf8');
+const sampleHTMLRule4 = fs.readFileSync(process.cwd() + '/test/testHTML-rule4.html','utf8');
 
 const cheerio = require('cheerio');
 
 
 describe('CLI app main', function () {
     it('Command line initialization should return true', function () {
-        var result = localw3c.cliApp(process.argv);
+        var result = w3clinkBin.cliApp(process.argv);
         assert.equal(result, true);
     });
 });
@@ -54,6 +59,38 @@ describe('HTML Validator',function () {
         var result = htmlvalidator.validateHtml($);
         expect(result).to.be.a('object');
     });
+
+    it('Sample HTML(Violates RULE SET #1) validation Should return an object', function () {
+        var $ = cheerio.load(sampleHTMLRule1);
+        var result = htmlvalidator.validateHtml($);
+        expect(result).to.be.a('object');
+    });
+
+    it('Sample HTML(Violates RULE SET #2) validation Should return an object', function () {
+        htmlvalidator.setGlobals({
+            localUrl : '',
+            localHost : '',
+            verbose : true,
+            onlyhtml : false,
+            suggestions : true
+        });
+        var $ = cheerio.load(sampleHTMLRule2);
+        var result = htmlvalidator.validateHtml($);
+        expect(result).to.be.a('object');
+    });
+
+    it('Sample HTML(Violates RULE SET #3) validation Should return an object', function () {
+        var $ = cheerio.load(sampleHTMLRule3);
+        var result = htmlvalidator.validateHtml($);
+        expect(result).to.be.a('object');
+    });
+
+    it('Sample HTML(Violates RULE SET #4) validation Should return an object', function () {
+        var $ = cheerio.load(sampleHTMLRule4);
+        var result = htmlvalidator.validateHtml($);
+        expect(result).to.be.a('object');
+    });
+
 });
 
 
@@ -94,7 +131,37 @@ describe('Links', function () {
 
 });
 
-/*
-* TODO - write unit test cases for w3clink.js 
-* */
+describe('Main file', function(){
+
+    it('w3clink initialization should return undefined', function(){
+        var result = w3clink.init({
+            localUrl : 'http://localhost/samplepage/',
+            localHost : '',
+            verbose : true,
+            onlyhtml : false,
+            suggestions : false
+        });
+
+        assert.equal(typeof result, 'undefined');
+
+
+    });
+
+    it('isLocal should return true for same host url', function () {
+        var result = w3clink.isLocal('http://localhost/samplepage/');
+        assert.equal(result, true);
+    });
+
+
+    it('isLocal should return false for different host url', function () {
+        var result = w3clink.isLocal('http://www.example.com/samplepage/');
+        assert.equal(result, false);
+    });
+
+
+    it('Validation execution should be executed without crash and return undefined', function(){
+        var result = w3clink.exec();
+        assert.equal(typeof result, 'undefined');
+    });
+});
 
