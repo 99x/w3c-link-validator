@@ -84,6 +84,12 @@ Install dependencies
 $ npm install
 ```
 
+Link to global commands
+
+```bash
+$ npm link
+```
+
 
 #### Crawling algorithm
 
