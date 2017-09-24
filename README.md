@@ -71,6 +71,12 @@ Sample output on Windows terminal
 
 ![Sample terminal output](media/terminalsample.png "Sample terminal output")
 
+Massive websites may log bunch of messages to your terminal. Therefore you may save your log to a file.
+
+```bash
+ $ w3clink check http://localhost/w3ctest/ suggestions > mylogfile.txt
+```
+
 
 
 ## Contributing
