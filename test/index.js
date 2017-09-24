@@ -146,7 +146,7 @@ describe('Main file', function(){
 
     it('w3clink initialization should return undefined', function(){
         var result = w3clink.init({
-            localUrl : 'http://localhost/samplepage/',
+            localUrl : 'http://www.example.com/',
             localHost : '',
             verbose : true,
             onlyhtml : false,
@@ -159,18 +159,20 @@ describe('Main file', function(){
     });
 
     it('isLocal should return true for same host url', function () {
-        var result = w3clink.isLocal('http://localhost/samplepage/');
+        var result = w3clink.isLocal('http://www.example.com/samplepage/');
         assert.equal(result, true);
     });
 
 
     it('isLocal should return false for different host url', function () {
-        var result = w3clink.isLocal('http://www.example.com/samplepage/');
+        var result = w3clink.isLocal('http://localhost/samplepage/');
         assert.equal(result, false);
     });
 
 
-    it('Validation execution should be executed without crash and return undefined', function(){
+    it('Validation execution should be executed without crash and return undefined', function(done){
+        this.timeout(10000);
+        setTimeout(done,9500);
         var result = w3clink.exec();
         assert.equal(typeof result, 'undefined');
     });
