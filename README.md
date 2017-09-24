@@ -94,7 +94,7 @@ $ npm link
 #### Crawling algorithm
 
 
-![Crawling algorithm flowchart](https://raw.githubusercontent.com/99xt/w3c-link-validator/master/media/crawlingalgofc.png "Crawling algorithm flowchart")
+![Crawling algorithm flowchart](media/crawlingalgofc.png "Crawling algorithm flowchart")
 
 
 
