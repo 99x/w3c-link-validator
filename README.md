@@ -1,4 +1,4 @@
-<div style="text-align:center;">
+<div align="center">
     <img style="width:600px;" alt="Crawling algorithm flowchart" src="media/w3clinklogo.png"/>
 </div>
 
