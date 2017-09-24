@@ -20,6 +20,8 @@ $ npm install w3c-link-validator -g
 
 After installation `w3clink` command will be available globally.
 
+_Note :  'w3c-link-validator' is not in the npm registry yet. Therefore kindly follow [developers installation](#contributing)._
+
 
 ## Tutorial
 
