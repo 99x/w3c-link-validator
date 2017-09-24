@@ -1,6 +1,9 @@
 # webstorm files
 .idea/
 
+# Windows Thumbnails
+Thumbs.db
+
 # Logs
 logs
 *.log

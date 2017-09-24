@@ -67,6 +67,11 @@ Example
 $ w3clink check http://localhost/w3ctest/ suggestions
 ```
 
+Sample output on Windows terminal
+
+![Sample terminal output](media/terminalsample.png "Sample terminal output")
+
+
 
 ## Contributing
 
@@ -90,13 +95,41 @@ Link to global commands
 $ npm link
 ```
 
+Run the tests
+
+```bash
+$ npm run test
+```
+
+Check the code coverage with [istanbul](https://istanbul.js.org/). HTML report will be generated to `/coverage/lcov-report`
+
+```bash
+$ npm run coverage
+```
+
+
+
 
 #### Crawling algorithm
 
 
-![Crawling algorithm flowchart](https://raw.githubusercontent.com/99xt/w3c-link-validator/master/media/crawlingalgofc.png "Crawling algorithm flowchart")
+![Crawling algorithm flowchart](media/crawlingalgofc.png "Crawling algorithm flowchart")
 
 
+#### Your contribution
+
+We expect your contribution to improve this project. You may..
+
+- Open [issues](https://guides.github.com/features/issues/) for bug reporting or new feature suggestions.
+- Submit [pull requests](https://help.github.com/articles/about-pull-requests/) from your fork in order to close existing issues.
+
+We encourage you to apply Github best practices for the communication and development through the repo.
+
+Happy contributing! 
+
+## Acknowledgement
+
+w3c-link-validator is initially developed for the [Hacktitude](http://opensource.99xtechnology.com/hacktitude/) open source hackathon. Special thanks goes to project mentors [@thinkholic](https://github.com/thinkholic), [@lakindu95](https://github.com/lakindu95), [@rehrumesh](https://github.com/rehrumesh) and awesome [Dotitude Family](http://dotitude.com/) from [99xt](http://99xtechnology.com/).
 
 ## License
 
