@@ -148,3 +148,4 @@ module.exports.run = runValidator;
 module.exports.exec = execute;
 module.exports.isLocal = isLocal;
 module.exports.isHtmlResponse = isHtmlResponse;
+module.exports.displaySummary = displaySummary;

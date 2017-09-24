@@ -21,6 +21,17 @@ describe('CLI app main', function () {
         var result = w3clinkBin.cliApp(process.argv);
         assert.equal(result, true);
     });
+
+    it('Command line initialization(with parameters) should return true', function () {
+        var result = w3clinkBin.cliApp([
+            '',
+            '',
+            'check',
+            'http://example.com',
+            'onlyhtml'
+        ]);
+        assert.equal(result, true);
+    });
 });
 
 
@@ -163,5 +174,11 @@ describe('Main file', function(){
         var result = w3clink.exec();
         assert.equal(typeof result, 'undefined');
     });
+
+    it('displaySummary should return undefined',function(){
+        var result = w3clink.displaySummary();
+        assert.equal(typeof result, 'undefined');
+    });
+
 });
 

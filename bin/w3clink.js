@@ -7,12 +7,12 @@ var program = require('commander');
 const version = "1.0.0";
 
 
-var cliApp = function () {
+var cliApp = function (args) {
 
     program.version(version)
         .option('check, --check <url> [verbose] [onlyhtml] [suggestions]', 'Validate links and html both');
 
-    program.parse(process.argv);
+    program.parse(args);
 
     if (typeof program.check != 'undefined') {
         var url = program.check;
@@ -31,7 +31,7 @@ var cliApp = function () {
 
 module.exports.cliApp = cliApp;
 
-cliApp();
+cliApp(process.argv);
 
 
 
