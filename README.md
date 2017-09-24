@@ -1,5 +1,5 @@
 <div style="text-align:center;">
-    <img alt="Crawling algorithm flowchart" src="media/w3clinklogo.png"/>
+    <img style="width:600px;" alt="Crawling algorithm flowchart" src="media/w3clinklogo.png"/>
 </div>
 
 [![Join the chat at https://gitter.im/w3c-link-validator/Lobby](https://badges.gitter.im/w3c-link-validator/Lobby.svg)](https://gitter.im/w3c-link-validator/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
