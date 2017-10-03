@@ -17,6 +17,19 @@ var setGlobals = function (options) {
     globalOptions = options;
 }
 
+var previousTags = {};
+const TAB_LENGTH = 8;
+
+var lineAndColumn = function (html, $) {
+    if (!previousTags[html]) previousTags[html] = 0;
+
+    var occurences = ++previousTags[html];
+    var lines = $.html().split(html, occurences).join(html).split(/\r\n|\r|\n/);
+    var column = lines[lines.length - 1].replace("\t", ' '.repeat(TAB_LENGTH)).length;
+
+    return '[' + lines.length + ':' + column + ']';
+}
+
 var validateHtml = function ($) {
     var totalProblems = 0;
     var totalSuggestions = 0;
@@ -109,6 +122,7 @@ var validateHtml = function ($) {
     for(var requiredAttributesIndex in requiredAttribs){
         var requiredAttribute = requiredAttribs[requiredAttributesIndex];
         var requiredAttributesDom = $(requiredAttribute.tag);
+
         for(var i=0; i<requiredAttributesDom.length; i++) {
             var elm = requiredAttributesDom[i];
             var elmAttrib = $(elm).attr(requiredAttribute.attribute);
@@ -126,7 +140,7 @@ var validateHtml = function ($) {
                         alerts.alertSuggestion(requiredAttribute.error);
                 }
 
-                console.log(chalk.grey(elmHtml));
+                console.log(chalk.grey(lineAndColumn(elmHtml, $) + ' ' + elmHtml))
                 console.log('');
                 totalProblems++;
             }
@@ -134,7 +148,7 @@ var validateHtml = function ($) {
                 if(globalOptions.suggestions && requiredAttribute.showEmptySuggestion){
                     if(elmAttrib == ''){
                         alerts.alertSuggestion(requiredAttribute.emptySuggestion);
-                        console.log(chalk.grey(elmHtml));
+                        console.log(chalk.grey(lineAndColumn(elmHtml, $) + ' ' + elmHtml));
                         console.log('');
                         totalSuggestions++;
                     }
@@ -211,7 +225,7 @@ var validateHtml = function ($) {
         for(var i=0; i<obsoleteTagDom.length; i++){
             var obsoleteTagHtml = $.html(obsoleteTagDom[i]);
             alerts.alertWarning(obsoleteTag.error + ' ' +  obsoleteTag.solution);
-            console.log(chalk.grey(obsoleteTagHtml));
+            console.log(chalk.grey(lineAndColumn(obsoleteTagHtml, $) + ' ' + obsoleteTagHtml))
             totalProblems++;
         }
     }
@@ -295,7 +309,7 @@ var validateHtml = function ($) {
             if(typeof $(obsoleteAttributeDom[i]).attr(obsoleteAttribute.attribute) != 'undefined'){
                 var obsoleteAttributeHtml = $.html(obsoleteAttributeDom[i]);
                 alerts.alertWarning(obsoleteAttribute.error+ ' ' + obsoleteAttribute.solution);
-                console.log(chalk.grey(obsoleteAttributeHtml));
+                console.log(chalk.grey(lineAndColumn(obsoleteAttributeHtml, $) + ' ' + obsoleteAttributeHtml));
                 totalProblems++;
             }
         }
