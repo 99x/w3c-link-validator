@@ -34,12 +34,12 @@ var isLocal = function (link) {
 
 var isHtmlResponse  = function(header){
     return (header['content-type'].search('text/html') != -1);
-}
+};
 
 
 var execute = function () {
     runValidator(urlQueue[0]);
-}
+};
 
 
 var initValidator = function (options) {
@@ -141,7 +141,7 @@ var displaySummary = function () {
     console.log((validationResult.problems == 0 ? chalk.rgb(0,200,0)(figures.tick) :  chalk.rgb(200,0,0)(figures.cross))   + ' HTML Problems      : ' + validationResult.problems);
     if(globalOptions.verbose)
         console.log((validationResult.suggestions == 0 ? chalk.rgb(200,200,0)(figures.info) :  chalk.rgb(200,200,0)(figures.info))   + ' HTML Suggestions   : ' + validationResult.suggestions);
-}
+};
 
 module.exports.init = initValidator;
 module.exports.run = runValidator;
