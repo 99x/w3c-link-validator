@@ -148,7 +148,7 @@ var validateHtml = function ($) {
     /**
      *  RULE 3 - obsolete elements
      *  Reference https://www.w3.org/TR/html51/obsolete.html#non-conforming-features
-     *  @todo - all obsolete elements should be added to obsoleteTags array below.
+     *  TODO: all obsolete elements should be added to obsoleteTags array below.
      *
      */
     var obsoleteTags = [
@@ -220,7 +220,7 @@ var validateHtml = function ($) {
     /**
     *  RULE 4 - obsolete attributes
     *  Reference  https://w3c.github.io/html/obsolete.html#element-attrdef-a-charset
-    *  @todo - all other obsolete attributes to obsoleteAttributes array
+    *  TODO: all other obsolete attributes to obsoleteAttributes array
     *
     * */
 
