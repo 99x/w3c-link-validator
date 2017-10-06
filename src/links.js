@@ -12,13 +12,13 @@ var globalOptions = {
 var isLocal = function (link) {
     var urlinfo = url.parse(link);
     var host = urlinfo.host;
-    return (host == globalOptions.localHost || host==null);
+    return (host == globalOptions.localHost || host == null);
 };
 
 
 var setGlobals = function (options) {
     globalOptions = options;
-}
+};
 
 
 var linkChecker = function ($, rootUrl) {
@@ -28,10 +28,10 @@ var linkChecker = function ($, rootUrl) {
 
     var urls = [];
     if(links.length == 0){
-
+        /** TODO: ? */
     }
     else {
-        console.log(chalk.italic('Adding ' + links.length+ ' link(s) to the queue...\n'));
+        console.log(chalk.italic('Adding ' + links.length + ' link(s) to the queue...\n'));
         for (var i = 0; i < links.length; i++) {
             var innerLink = $(links[i]).attr('href');
             if (typeof innerLink != 'undefined') {
@@ -48,7 +48,7 @@ var linkChecker = function ($, rootUrl) {
                 }
                 else {
                     if(globalOptions.verbose)
-                        console.log('EXT  ' +  chalk.grey(innerLink));
+                        console.log('EXT  ' + chalk.grey(innerLink));
                 }
 
                 try {
