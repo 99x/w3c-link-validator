@@ -84,6 +84,7 @@ Massive websites may log bunch of messages to your terminal. Therefore you may s
 
 
 ## Contributing
+[**Click here to view the full contribution guidelines**](CONTRIBUTING.md)
 
 #### Development setup
 
