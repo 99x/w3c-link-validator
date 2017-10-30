@@ -50,4 +50,10 @@ module.exports = [
         error : '<listing> is completely obsolete, and must not be used by authors.',
         solution : 'Use <pre> and <code> instead.'
     },
+    {
+        tag : 'center',
+        error : '<center> is concidered obsolete due to its presentational nature, and must not be used by authors.',
+        solution : 'Use  CSS’s <text-align> property.'
+    },
+    
 ];

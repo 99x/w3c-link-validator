@@ -60,4 +60,10 @@ module.exports = [
         error : 'align attribute in <h1>...<h6> is completely obsolete, and must not be used by authors.',
         solution : 'Use CSS instead.'
     },
+    {
+        tags : 'time',
+        attribute : 'pubdate',
+        error : 'pubdate attribute in <time> is completely obsolete, and must not be used by authors.',
+        solution : 'provide the same information by using <datePublished> value .'
+    },
 ];
