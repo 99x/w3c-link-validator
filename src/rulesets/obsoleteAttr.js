@@ -60,4 +60,10 @@ module.exports = [
         error : 'align attribute in <h1>...<h6> is completely obsolete, and must not be used by authors.',
         solution : 'Use CSS instead.'
     },
+    {
+        tags : 'img',
+        attribute : 'border',
+        error : 'border attribute in <img> is completely obsolete, and will trigger warnings in conformance checkers.',
+        solution : 'Use CSS instead .'
+    },
 ];
