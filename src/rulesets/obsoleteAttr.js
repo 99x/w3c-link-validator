@@ -61,9 +61,9 @@ module.exports = [
         solution : 'Use CSS instead.'
     },
     {
-        tags : 'time',
-        attribute : 'pubdate',
-        error : 'pubdate attribute in <time> is completely obsolete, and must not be used by authors.',
-        solution : 'provide the same information by using <datePublished> value .'
+        tags : 'img',
+        attribute : 'border',
+        error : 'border attribute in <img> is completely obsolete, and will trigger warnings in conformance checkers.',
+        solution : 'Use CSS instead .'
     },
 ];
